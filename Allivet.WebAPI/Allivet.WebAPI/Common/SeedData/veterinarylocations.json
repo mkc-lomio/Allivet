@@ -1,0 +1,24 @@
+﻿[
+  {
+    "Id": "0d64aaf2-e8ee-43a0-9ae3-a803fe771fd9",
+    "DateCreated": "1/1/2018",
+    "DateModified": "1/1/2018",
+    "CreatedBy": "00000000-0000-0000-0000-000000000000",
+    "ModifiedBy": "00000000-0000-0000-0000-000000000000",
+    "IsActive": true,
+    "Name": "CHENEY ANIMAL CLINIC",
+    "Address": "1961 S 391ST ST W CHENEY, KS 67025",
+    "ContactNumber": "3165423401"
+  },
+  {
+    "Id": "5c3d6179-58ff-4e62-bc46-808bf9dcc7f7",
+    "DateCreated": "1/1/2018",
+    "DateModified": "1/1/2018",
+    "CreatedBy": "00000000-0000-0000-0000-000000000000",
+    "ModifiedBy": "00000000-0000-0000-0000-000000000000",
+    "IsActive": true,
+    "Name": "HEARTLAND VETERINARY SERVICES",
+    "Address": "2800 N 247TH ST W ANDALE, KS 67001",
+    "ContactNumber": "3164442377"
+  }
+]
