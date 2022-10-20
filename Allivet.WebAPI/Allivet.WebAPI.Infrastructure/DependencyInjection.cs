@@ -12,6 +12,7 @@ namespace Allivet.WebAPI.Infrastructure
         {
             services.AddTransient<IVeterinaryLocationRepository, VeterinaryLocationRepository>();
             services.AddScoped<IExcelService, ExcelService>();
+            services.AddScoped<IWebScrapperService, WebScrapperService>();
             return services;
         }
     }

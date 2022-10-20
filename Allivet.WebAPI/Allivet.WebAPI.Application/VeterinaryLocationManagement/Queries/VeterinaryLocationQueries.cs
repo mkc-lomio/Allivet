@@ -12,6 +12,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Serilog;
 using Allivet.WebAPI.Infrastructure.Common.Interfaces;
+using Allivet.WebAPI.Domain.Entities;
 
 namespace Allivet.WebAPI.Application.VeterinaryLocationManagement.Queries
 {
@@ -20,12 +21,15 @@ namespace Allivet.WebAPI.Application.VeterinaryLocationManagement.Queries
         private readonly IConfiguration _configuration;
         private readonly string _connectionString = string.Empty;
         private readonly IExcelService _excelService;
+        private readonly IWebScrapperService _webScrapperService;
         public VeterinaryLocationQueries(IConfiguration configuration,
-             IExcelService excelService)
+             IExcelService excelService,
+             IWebScrapperService webScrapperService)
         {
             _configuration = configuration;
             _excelService = excelService;
             _connectionString = _configuration.GetValue<string>("ConnectionStrings:AllivetWebApiDb");
+            _webScrapperService = webScrapperService;
         }
         public async Task<PaginationViewModel<VeterinaryLocationDTO>> GetPaginatedVeterinaryLocations(int pageSize, int pageNumber, string search)
         {
@@ -134,6 +138,24 @@ vl.[Name] Like '%{2}%'
             {
                 Log.Error("GetVeterinaryLocations " + ex.Message);
                 throw new CustomErrorException("GetVeterinaryLocations " + ex.Message);
+            }
+        }
+
+        public async Task<byte[]> GetVeterinaryLocationsFromPetMed()
+        {
+            try
+            {
+                var data = await _webScrapperService.GetDataInPetMedWebApp();
+                List<string> columns = new List<string>() { "Name", "Address", "ContactNumber" };
+                string tempfileName = "VeterinaryLocation";
+
+                var fileBytes = _excelService.GetDataExcelFileBytes<VeterinaryLocation>(data, columns, tempfileName);
+                return fileBytes;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("GetVeterinaryLocationsFromPetMed " + ex.Message);
+                throw new CustomErrorException("GetVeterinaryLocationsFromPetMed " + ex.Message);
             }
         }
     }

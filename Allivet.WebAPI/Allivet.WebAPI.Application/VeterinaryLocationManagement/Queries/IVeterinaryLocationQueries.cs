@@ -9,6 +9,7 @@ namespace Allivet.WebAPI.Application.VeterinaryLocationManagement.Queries
         Task<List<VeterinaryLocationDTO>> GetVeterinaryLocations();
         Task<PaginationViewModel<VeterinaryLocationDTO>> GetPaginatedVeterinaryLocations(int pageSize, int pageNumber, string search);
         Task<byte[]> GetVeterinaryLocationsExcelFile();
+        Task<byte[]> GetVeterinaryLocationsFromPetMed();
 
     }
 }

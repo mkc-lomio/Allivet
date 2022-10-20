@@ -115,5 +115,29 @@ namespace Allivet.WebAPI.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("scrapeddata/excelfile", Name = "getVeterinaryLocationsFromPetMed")]
+        [ProducesResponseType(typeof(FileResultFromStream), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult> GetVeterinaryLocationsFromPetMed()
+        {
+            try
+            {
+                var result = await _veterinaryLocationQueries.GetVeterinaryLocationsFromPetMed();
+
+                var file = new FileResultFromStream(
+                    $"VeterinaryLocation.xlsx",
+                    new MemoryStream(result),
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                );
+
+                return file;
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }
